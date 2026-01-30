@@ -1,12 +1,14 @@
 import json
-from pathlib import Path
+import os
 
-DB_PATH = Path("accounts.json")
+FILE = "accounts.json"
 
-def load_db():
-    if not DB_PATH.exists():
-        DB_PATH.write_text(json.dumps({}, indent=2))
-    return json.loads(DB_PATH.read_text())
+def load_accounts():
+    if not os.path.exists(FILE):
+        return {}
+    with open(FILE, "r") as f:
+        return json.load(f)
 
-def save_db(data):
-    DB_PATH.write_text(json.dumps(data, indent=2))
+def save_accounts(data):
+    with open(FILE, "w") as f:
+        json.dump(data, f, indent=4)

@@ -1,73 +1,60 @@
-from database import load_db, save_db
-from utils import log_transaction
+from database import load_accounts, save_accounts
+from utils import line, get_amount
+from datetime import datetime
 
-def auth():
-    db = load_db()
-    acc = input("Enter Account Number: ").strip()
-    if acc not in db:
-        print("Account not found")
-        return None
-    for _ in range(3):
-        pin = input("Enter PIN: ").strip()
-        if pin == db[acc]["pin"]:
-            return acc
-        print("Wrong PIN")
-    print("Account locked after 3 wrong attempts")
-    return None
+def atm_menu(acc):
+    while True:
+        data = load_accounts()
+        line()
+        print(f"Welcome, {data[acc]['name']}")
+        print("1 Deposit")
+        print("2 Withdraw")
+        print("3 Transfer")
+        print("4 Balance")
+        print("5 Mini Statement")
+        print("6 Logout")
+        line()
 
-def balance(acc):
-    db = load_db()
-    print("Balance:", db[acc]["balance"])
+        ch = input("Choose option: ")
 
-def deposit(acc):
-    db = load_db()
-    amt = input("Amount: ").strip()
-    if not amt.isdigit():
-        print("Invalid")
-        return
-    amt = int(amt)
-    db[acc]["balance"] += amt
-    log_transaction(db[acc], f"Deposit +{amt}")
-    save_db(db)
-    print("Deposited")
+        if ch == "1":
+            amt = get_amount()
+            if amt:
+                data[acc]["balance"] += amt
+                data[acc]["transactions"].append(f"{datetime.now()} +{amt}")
+                save_accounts(data)
+                print("Deposit successful")
 
-def withdraw(acc):
-    db = load_db()
-    amt = input("Amount: ").strip()
-    if not amt.isdigit():
-        print("Invalid")
-        return
-    amt = int(amt)
-    if amt > db[acc]["balance"]:
-        print("Insufficient funds")
-        return
-    db[acc]["balance"] -= amt
-    log_transaction(db[acc], f"Withdraw -{amt}")
-    save_db(db)
-    print("Withdrawn")
+        elif ch == "2":
+            amt = get_amount()
+            if amt and amt <= data[acc]["balance"]:
+                data[acc]["balance"] -= amt
+                data[acc]["transactions"].append(f"{datetime.now()} -{amt}")
+                save_accounts(data)
+                print("Withdrawal successful")
+            else:
+                print("Insufficient balance")
 
-def transfer(acc):
-    db = load_db()
-    target = input("Target Account: ").strip()
-    if target not in db:
-        print("Target account not found")
-        return
-    amt = input("Amount: ").strip()
-    if not amt.isdigit():
-        print("Invalid")
-        return
-    amt = int(amt)
-    if amt > db[acc]["balance"]:
-        print("Insufficient funds")
-        return
-    db[acc]["balance"] -= amt
-    db[target]["balance"] += amt
-    log_transaction(db[acc], f"Transfer to {target} -{amt}")
-    log_transaction(db[target], f"Transfer from {acc} +{amt}")
-    save_db(db)
-    print("Transferred")
+        elif ch == "3":
+            to = input("Receiver account number: ")
+            amt = get_amount()
+            if to in data and amt and amt <= data[acc]["balance"]:
+                data[acc]["balance"] -= amt
+                data[to]["balance"] += amt
+                data[acc]["transactions"].append(f"{datetime.now()} Sent {amt} to {to}")
+                data[to]["transactions"].append(f"{datetime.now()} Received {amt} from {acc}")
+                save_accounts(data)
+                print("Transfer successful")
+            else:
+                print("Transfer failed")
 
-def mini_statement(acc):
-    db = load_db()
-    for t in db[acc]["transactions"]:
-        print(t)
+        elif ch == "4":
+            print("Current Balance:", data[acc]["balance"])
+
+        elif ch == "5":
+            print("Last Transactions:")
+            for t in data[acc]["transactions"][-5:]:
+                print(t)
+
+        elif ch == "6":
+            break

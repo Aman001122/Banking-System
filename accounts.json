@@ -1,13 +1,122 @@
 {
-  "1001": {
-    "pin": "1234",
-    "balance": 19866655,
-    "transactions": []
-  },
-  "1002": {
-    "pin": "2222",
-    "balance": 3000,
-    "transactions": []
-  }
-  
+    "1": {
+        "name": "User1",
+        "pin": "1111",
+        "balance": 1000,
+        "transactions": []
+    },
+    "2": {
+        "name": "User2",
+        "pin": "2222",
+        "balance": 2000,
+        "transactions": []
+    },
+    "3": {
+        "name": "User3",
+        "pin": "3333",
+        "balance": 3000,
+        "transactions": []
+    },
+    "4": {
+        "name": "User4",
+        "pin": "4444",
+        "balance": 4000,
+        "transactions": []
+    },
+    "5": {
+        "name": "User5",
+        "pin": "5555",
+        "balance": 5000,
+        "transactions": []
+    },
+    "6": {
+        "name": "User6",
+        "pin": "6666",
+        "balance": 6000,
+        "transactions": []
+    },
+    "7": {
+        "name": "User7",
+        "pin": "7777",
+        "balance": 7000,
+        "transactions": []
+    },
+    "8": {
+        "name": "User8",
+        "pin": "8888",
+        "balance": 8000,
+        "transactions": []
+    },
+    "9": {
+        "name": "User9",
+        "pin": "9999",
+        "balance": 9000,
+        "transactions": []
+    },
+    "10": {
+        "name": "User10",
+        "pin": "1010",
+        "balance": 10000,
+        "transactions": []
+    },
+    "11": {
+        "name": "User11",
+        "pin": "1111",
+        "balance": 11000,
+        "transactions": []
+    },
+    "12": {
+        "name": "User12",
+        "pin": "1212",
+        "balance": 12000,
+        "transactions": []
+    },
+    "13": {
+        "name": "User13",
+        "pin": "1313",
+        "balance": 13000,
+        "transactions": []
+    },
+    "14": {
+        "name": "User14",
+        "pin": "1414",
+        "balance": 14000,
+        "transactions": []
+    },
+    "15": {
+        "name": "User15",
+        "pin": "1515",
+        "balance": 15000,
+        "transactions": []
+    },
+    "16": {
+        "name": "User16",
+        "pin": "1616",
+        "balance": 16000,
+        "transactions": []
+    },
+    "17": {
+        "name": "User17",
+        "pin": "1717",
+        "balance": 17000,
+        "transactions": []
+    },
+    "18": {
+        "name": "User18",
+        "pin": "1818",
+        "balance": 18000,
+        "transactions": []
+    },
+    "19": {
+        "name": "User19",
+        "pin": "1919",
+        "balance": 19000,
+        "transactions": []
+    },
+    "20": {
+        "name": "User20",
+        "pin": "2020",
+        "balance": 20000,
+        "transactions": []
+    }
 }
